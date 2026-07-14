@@ -561,6 +561,15 @@ Reflex AI is built around five principles:
 
 ---
 
+## 👥 Authors
+
+This project was built collaboratively by:
+
+* **Aadarsh Ravi** — [@Aadarsh-Ravi31](https://github.com/Aadarsh-Ravi31)
+* **Dhanvardini Rajendran** — [@DhanvardiniRajendran25](https://github.com/DhanvardiniRajendran25)
+
+---
+
 ## 🛡️ Disclaimer
 
 This project is **for educational and research purposes only**.
