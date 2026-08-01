@@ -7,13 +7,13 @@ This Django project serves as the backend API for a Soros-inspired macro and ris
 1.  Fetch annual financial statement data (Income Statement, Balance Sheet, Cash Flow) for publicly traded companies using the `yfinance` library.
 2.  Calculate and return Soros-style risk checks (liquidity, leverage, profitability resilience).
 3.  Offer an AI chatbot interface powered by Google's Gemini model, instructed to respond in the style and philosophy of George Soros.
-4.  Offer an alternative chatbot interface powered by a custom RAG (Retrieval-Augmented Generation) model, which now mirrors the standalone Streamlit bot: ChromaDB + sentence-transformer embeddings for retrieval and Gemini for generation with ticker-aware market snapshots.
+4.  Offer an alternative chatbot interface powered by a custom RAG (Retrieval-Augmented Generation) model, which now mirrors the standalone Streamlit bot: ChromaDB + ONNX (fastembed) embeddings for retrieval and Gemini for generation with ticker-aware market snapshots.
 
 ## Features
 
 - **Financial Data Endpoint:** Retrieves statements and calculated Soros-style risk checks for a given stock symbol.
 - **Gemini Chatbot Endpoint:** Provides AI-generated responses in Soros's voice via Gemini.
-- **RAG Chatbot Endpoint:** Provides AI-generated responses sourced from a Soros-focused Q&A corpus using ChromaDB + sentence-transformer embeddings and Gemini generation (with optional ticker market snapshots).
+- **RAG Chatbot Endpoint:** Provides AI-generated responses sourced from a Soros-focused Q&A corpus using ChromaDB + ONNX (fastembed) embeddings and Gemini generation (with optional ticker market snapshots).
 - **CORS Enabled:** Configured to allow requests from the frontend application.
 
 ## Technology Stack

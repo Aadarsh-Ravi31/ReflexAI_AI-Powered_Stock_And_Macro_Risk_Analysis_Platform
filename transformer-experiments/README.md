@@ -19,7 +19,7 @@ This project is the React frontend for the Soros Macro Lab application. It provi
   - Real-time chat interface.
   - Toggle switch to select between two backend AI models:
     - **Gemini:** Uses Google's Gemini, prompted to answer like George Soros.
-    - **Custom RAG:** Uses a backend RAG model (TF-IDF + T5) answering questions based on a Soros corpus.
+    - **Custom RAG:** Uses a backend RAG pipeline (ChromaDB embeddings + Gemini generation) answering questions grounded in a Soros Q&A corpus.
   - Displays user and bot messages with distinct styling and animations.
 - **Styling:** Modern dark theme using Tailwind CSS, 'Inter' and 'Playfair Display' fonts, and purple/gold accent colors.
 
