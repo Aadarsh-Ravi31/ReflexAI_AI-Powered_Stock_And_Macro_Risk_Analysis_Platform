@@ -23,7 +23,7 @@ This Django project serves as the backend API for a Soros-inspired macro and ris
 - `yfinance`: For fetching stock financial data.
 - `pandas`, `numpy`: For data manipulation.
 - `google-generativeai`: For interacting with the Gemini API.
-- `transformers`, `torch`, `scikit-learn`: For the RAG pipeline (T5 model and TF-IDF).
+- `chromadb`: Vector store + ONNX (fastembed) embeddings for RAG retrieval.
 - `django-cors-headers`: For handling Cross-Origin Resource Sharing.
 
 ## Prerequisites
@@ -39,7 +39,7 @@ This Django project serves as the backend API for a Soros-inspired macro and ris
 
     ```bash
     git clone [your-repo-url] # Replace with your repository URL
-    cd buffet-backend
+    cd market-risk-api
     ```
 
 2.  **Create/Activate Virtual Environment**
@@ -59,10 +59,10 @@ This Django project serves as the backend API for a Soros-inspired macro and ris
 3.  **Set Up API Key**
 
     - Obtain a Gemini API Key from [Google AI Studio](https://aistudio.google.com/).
-    - Create a file named `secrets.py` in the project root (`buffet-backend/`).
+    - Create a file named `secrets.py` inside the settings package (`market-risk-api/soros_backend/`).
     - Add your API key to this file:
       ```python
-      # buffet-backend/secrets.py
+      # market-risk-api/soros_backend/secrets.py
       GEMINI_API_KEY = "YOUR_API_KEY_HERE"
       ```
     - **IMPORTANT:** Add `secrets.py` to your `.gitignore` file to avoid committing your key!
@@ -107,7 +107,7 @@ This Django project serves as the backend API for a Soros-inspired macro and ris
     # Or using specific venv python:
     # /path/to/your/shared/venv/bin/python manage.py runserver
     ```
-    The API should now be running, typically at `http://127.0.0.1:8000/`. The T5 model for the RAG endpoint will be loaded on startup, which might take a few moments.
+    The API should now be running, typically at `http://127.0.0.1:8000/`. On the first RAG request the ChromaDB embedding model is downloaded and the Soros Q&A index is built, which might take a few moments.
 
 ## API Endpoints
 
@@ -125,14 +125,14 @@ This Django project serves as the backend API for a Soros-inspired macro and ris
 
 ### RAG configuration notes
 - Place `Soros_Questions.xlsx` in the repo root (used to build the Chroma index automatically).
-- Set `GOOGLE_API_KEY` or `GEMINI_API_KEY` (or define `GEMINI_API_KEY` in `buffet_backend/secrets.py`) so Gemini can generate.
+- Set `GOOGLE_API_KEY` or `GEMINI_API_KEY` (or define `GEMINI_API_KEY` in `soros_backend/secrets.py`) so Gemini can generate.
 - The first RAG request will create/update a `chroma_db/` folder at the repo root for the persistent embedding store.
 - Ticker detection is limited to a small curated list; when present, a lightweight market snapshot from `yfinance` is added as background context.
 
 ## Project Structure
 
 ```text
-buffet-backend/
+market-risk-api/
 ├── financials_api/
 │   ├── data/
 │   │   └── qa_corpus.csv  <-- Place your corpus here
@@ -145,16 +145,14 @@ buffet-backend/
 │   ├── init.py
 │   ├── admin.py
 │   ├── apps.py
-│   ├── generator.py       <-- Legacy T5 generator (unused by current RAG)
 │   ├── rag_generator.py   <-- Gemini Generator (RAG)
 │   ├── rag_retriever.py   <-- Chroma + embeddings retriever
 │   ├── rag_data.py        <-- Excel loader for Soros Q&A
 │   ├── interface.py       <-- RAG Interface Logic (Gemini + Chroma)
 │   ├── models.py
-│   ├── retriever.py       <-- RAG Retriever Logic
 │   ├── tests.py
 │   └── urls.py            <-- App URLs (financials, chatbot, ragbot)
-├── buffet_backend/        <-- Project settings directory
+├── soros_backend/        <-- Project settings directory
 │   ├── init.py
 │   ├── asgi.py
 │   ├── settings.py        <-- Project settings (CORS here)

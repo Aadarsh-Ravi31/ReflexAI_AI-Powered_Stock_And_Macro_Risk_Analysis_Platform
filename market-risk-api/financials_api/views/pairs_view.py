@@ -12,7 +12,7 @@ try:
     GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
     if not GEMINI_API_KEY:
         try:
-            from buffet_backend import secrets
+            from soros_backend import secrets
             GEMINI_API_KEY = getattr(secrets, "GEMINI_API_KEY", None)
         except Exception:
             GEMINI_API_KEY = None
@@ -271,7 +271,7 @@ class PairTradingView(APIView):
                     "- Strategy tweak: <what to change and why>\n"
                     "Action: cut risk / press / hedge / wait\n"
                 )
-                model = genai.GenerativeModel('gemini-2.0-flash')
+                model = genai.GenerativeModel('gemini-2.5-flash')
                 resp = model.generate_content(prompt)
                 gemini_insight = resp.text.strip() if resp and hasattr(resp, "text") else None
             except Exception:

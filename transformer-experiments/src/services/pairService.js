@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { API_BASE } from '../config';
 
-const PAIRS_API_URL = 'http://127.0.0.1:8000/api/pairs/';
+const PAIRS_API_URL = `${API_BASE}/api/pairs/`;
 
 export const runPairBacktest = async ({ symbolA, symbolB, startDate, endDate, entryZ, exitZ, rollingWindow }) => {
     const payload = {

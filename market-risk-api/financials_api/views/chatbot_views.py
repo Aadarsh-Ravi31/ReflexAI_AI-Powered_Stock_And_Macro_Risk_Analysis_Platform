@@ -10,7 +10,7 @@ import os
 GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY')
 if not GEMINI_API_KEY:
     try:
-        from buffet_backend import secrets  # sibling project package
+        from soros_backend import secrets  # sibling project package
         GEMINI_API_KEY = getattr(secrets, 'GEMINI_API_KEY', None)
     except ImportError:
         print("Warning: secrets.py not found or GEMINI_API_KEY not set within it.")
@@ -65,8 +65,7 @@ class ChatbotView(APIView):
 
         # --- Call Gemini API ---
         try:
-            # ('gemini-1.5-flash')
-            model = genai.GenerativeModel('gemini-2.0-flash')
+            model = genai.GenerativeModel('gemini-2.5-flash')
             response = model.generate_content(prompt)
 
             # Extract the text response

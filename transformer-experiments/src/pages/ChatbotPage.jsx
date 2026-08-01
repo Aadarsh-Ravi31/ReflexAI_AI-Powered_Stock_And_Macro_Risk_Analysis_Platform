@@ -27,7 +27,6 @@ const ModelSelector = ({ model, setModel }) => {
             >
                 <option value="gemini">Gemini (Soros)</option>
                 <option value="rag">Custom RAG</option>
-                <option value="transformer">Transformer API</option>
             </select>
         </div>
     );
@@ -35,7 +34,7 @@ const ModelSelector = ({ model, setModel }) => {
 
 
 function ChatbotPage() {
-    const { messages, loading, sendMessage, transformerToken, setTransformerToken } = useChat();
+    const { messages, loading, sendMessage } = useChat();
     const [input, setInput] = useState('');
     const [selectedModel, setSelectedModel] = useState('gemini');
 
@@ -110,25 +109,13 @@ function ChatbotPage() {
 
             {/* Footer Area containing Input and Switch */}
             <div className="flex-shrink-0 pt-2">
-                {selectedModel === 'transformer' && (
-                    <div className="mb-2 flex flex-col sm:flex-row sm:items-center sm:space-x-3 space-y-2 sm:space-y-0 bg-slate-950/70 backdrop-blur px-3 py-2 rounded-xl border border-cyan-500/20">
-                        <label className="text-xs uppercase tracking-wide text-cyan-200/80">Transformer Token</label>
-                        <input
-                            type="text"
-                            value={transformerToken}
-                            onChange={(e) => setTransformerToken(e.target.value)}
-                            placeholder="Paste bearer token"
-                            className="flex-grow p-2 bg-slate-900 text-slate-100 border border-cyan-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400 text-xs"
-                        />
-                    </div>
-                )}
                 {/* Input Form */}
                 <form onSubmit={handleFormSubmit} className="flex items-center bg-slate-950/70 backdrop-blur p-2 rounded-2xl shadow-2xl border border-cyan-500/20 focus-within:ring-2 focus-within:ring-cyan-400 transition-all duration-300">
                     <input
                         type="text"
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
-                        placeholder={`Ask ${selectedModel === 'gemini' ? 'Gemini (Soros Style)' : selectedModel === 'rag' ? 'Soros RAG - macro/risk questions' : 'Transformer model'}...`}
+                        placeholder={`Ask ${selectedModel === 'gemini' ? 'Gemini (Soros Style)' : 'Soros RAG - macro/risk questions'}...`}
                         className="flex-grow p-3 bg-transparent text-slate-100 border-none focus:outline-none placeholder-slate-500 disabled:opacity-50 text-sm"
                         aria-label="Chat message input"
                         disabled={loading}

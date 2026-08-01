@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import RatiosTable from '../components/RatiosTable';
 import StatementTable from '../components/StatementTable';
+import { API_BASE } from '../config';
 
 function StockDashboard() {
     const [symbol, setSymbol] = useState('');
@@ -18,7 +19,7 @@ function StockDashboard() {
         setLoading(true);
         setData(null);
         setError(null);
-        const apiUrl = `http://127.0.0.1:8000/api/financials/${symbol.toUpperCase()}/`;
+        const apiUrl = `${API_BASE}/api/financials/${symbol.toUpperCase()}/`;
 
         try {
             const response = await axios.get(apiUrl);

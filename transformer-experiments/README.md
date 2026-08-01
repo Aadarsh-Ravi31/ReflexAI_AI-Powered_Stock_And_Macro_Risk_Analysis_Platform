@@ -47,7 +47,7 @@ This project is the React frontend for the Soros Macro Lab application. It provi
 
     ```bash
     git clone [your-repo-url] # Replace with your repository URL
-    cd buffet-ui
+    cd transformer-experiments
     ```
 
 2.  **Set Node Version** (Recommended if using `nvm`)
@@ -70,7 +70,7 @@ This project is the React frontend for the Soros Macro Lab application. It provi
 
 4.  **Ensure Backend is Running**
 
-    - This frontend requires the `buffet-backend` API server to be running simultaneously.
+    - This frontend requires the `soros-backend` API server to be running simultaneously.
     - Start the backend server first (see backend README). It typically runs at `http://127.0.0.1:8000/`.
     - Make sure the backend has CORS configured correctly to accept requests from the frontend's origin (default Vite port is usually `http://localhost:5173`).
 
@@ -88,7 +88,7 @@ yarn dev
 ## Project Structure
 
 ```text
-buffet-ui/
+transformer-experiments/
 ├── public/
 │ └── vite.svg
 ├── src/

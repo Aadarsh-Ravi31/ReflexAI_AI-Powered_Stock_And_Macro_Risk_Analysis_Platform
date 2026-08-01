@@ -1,0 +1,12 @@
+venv/
+__pycache__/
+*.pyc
+*.pyo
+db.sqlite3
+db.sqlite3-journal
+chroma_db/
+staticfiles/
+soros_backend/secrets.py
+*.ipynb
+.git/
+.gitignore

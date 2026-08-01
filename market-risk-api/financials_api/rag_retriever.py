@@ -57,7 +57,16 @@ class ChromaEmbeddingRetriever:
             metadatas.append({"row_index": i, "label": label})
             ids.append(str(i))
 
-        self._collection.add(documents=documents, metadatas=metadatas, ids=ids)
+        # Chroma's default (ONNX) embedding function caps each add() at ~166
+        # documents. Insert in batches to stay under that limit.
+        batch_size = 100
+        for start in range(0, len(documents), batch_size):
+            end = start + batch_size
+            self._collection.add(
+                documents=documents[start:end],
+                metadatas=metadatas[start:end],
+                ids=ids[start:end],
+            )
 
     def retrieve(self, query: str, top_k: int = 5) -> List[Tuple[str, str]]:
         query = (query or "").strip()

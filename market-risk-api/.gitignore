@@ -65,6 +65,12 @@ db.sqlite3-journal
 *.sqlite3
 *.sqlite3-journal
 
+# ChromaDB persistent index (rebuilt at Docker build time via prebuild_index.py)
+chroma_db/
+
+# Collected static files
+staticfiles/
+
 # Media files (user-uploaded content) - Typically ignored
 media/
 

@@ -13,7 +13,7 @@ def _resolve_api_key() -> Optional[str]:
     if key:
         return key
     try:
-        from buffet_backend import secrets  # type: ignore
+        from soros_backend import secrets  # type: ignore
 
         return getattr(secrets, "GEMINI_API_KEY", None)
     except Exception:

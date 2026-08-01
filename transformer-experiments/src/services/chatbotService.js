@@ -1,8 +1,8 @@
 import axios from 'axios';
+import { API_BASE } from '../config';
 
-const GEMINI_API_URL = 'http://127.0.0.1:8000/api/chatbot/';
-const RAG_API_URL = 'http://127.0.0.1:8000/api/ragbot/';
-const TRANSFORMER_API_URL = 'http://127.0.0.1:8000/api/transformerbot/';
+const GEMINI_API_URL = `${API_BASE}/api/chatbot/`;
+const RAG_API_URL = `${API_BASE}/api/ragbot/`;
 
 /**
  * Sends a message to the appropriate chatbot backend API based on selected model.
@@ -11,20 +11,14 @@ const TRANSFORMER_API_URL = 'http://127.0.0.1:8000/api/transformerbot/';
  * @returns {Promise<string>} - A promise that resolves with the bot's reply text.
  * @throws {Error} - Throws an error if the API call fails.
  */
-export const sendMessageToBot = async (userMessage, selectedModel, transformerToken) => {
+export const sendMessageToBot = async (userMessage, selectedModel) => {
     // Determine the correct API endpoint based on the selected model
-    let apiUrl = GEMINI_API_URL;
-    if (selectedModel === 'rag') apiUrl = RAG_API_URL;
-    if (selectedModel === 'transformer') apiUrl = TRANSFORMER_API_URL;
+    const apiUrl = selectedModel === 'rag' ? RAG_API_URL : GEMINI_API_URL;
     console.log(`Sending message to ${selectedModel} API: ${apiUrl}`);
 
     try {
         // Send message to the chosen endpoint using POST
-        const payload = { message: userMessage };
-        if (selectedModel === 'transformer' && transformerToken) {
-            payload.token = transformerToken;
-        }
-        const response = await axios.post(apiUrl, payload);
+        const response = await axios.post(apiUrl, { message: userMessage });
 
         if (response.data && response.data.reply) {
             return response.data.reply;

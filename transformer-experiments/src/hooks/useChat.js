@@ -4,7 +4,6 @@ import { sendMessageToBot } from '../services/chatbotService';
 export const useChat = () => {
     const [messages, setMessages] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [transformerToken, setTransformerToken] = useState('');
 
     const addMessage = useCallback((sender, text) => {
         const newMessage = {
@@ -23,7 +22,7 @@ export const useChat = () => {
 
         try {
             // Pass the selected model to the service function
-            const botReplyText = await sendMessageToBot(userMessageText, selectedModel, transformerToken);
+            const botReplyText = await sendMessageToBot(userMessageText, selectedModel);
             addMessage('bot', botReplyText);
         } catch (error) {
             // Use error message thrown by the service
@@ -31,13 +30,11 @@ export const useChat = () => {
         } finally {
             setLoading(false);
         }
-    }, [addMessage, loading, transformerToken]);
+    }, [addMessage, loading]);
 
     return {
         messages,
         loading,
         sendMessage,
-        transformerToken,
-        setTransformerToken,
     };
 };
