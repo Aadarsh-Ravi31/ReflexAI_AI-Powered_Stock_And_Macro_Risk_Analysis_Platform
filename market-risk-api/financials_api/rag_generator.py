@@ -5,7 +5,7 @@ from typing import Optional, Dict, Any
 
 import google.generativeai as genai
 
-DEFAULT_MODEL_NAME = "models/gemini-2.5-flash"
+DEFAULT_MODEL_NAME = os.environ.get("GEMINI_MODEL", "gemini-flash-latest")
 
 
 def _resolve_api_key() -> Optional[str]:

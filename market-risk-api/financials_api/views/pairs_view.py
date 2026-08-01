@@ -271,7 +271,7 @@ class PairTradingView(APIView):
                     "- Strategy tweak: <what to change and why>\n"
                     "Action: cut risk / press / hedge / wait\n"
                 )
-                model = genai.GenerativeModel('gemini-2.5-flash')
+                model = genai.GenerativeModel(os.environ.get('GEMINI_MODEL', 'gemini-flash-latest'))
                 resp = model.generate_content(prompt)
                 gemini_insight = resp.text.strip() if resp and hasattr(resp, "text") else None
             except Exception:
